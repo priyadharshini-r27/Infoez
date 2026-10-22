@@ -37,8 +37,8 @@ public class MyBusinessesStep {
 		return loginPage;
 	}
 
-	@Given("User is on the Business dashboard page")
-	public void user_is_on_the_business_dashboard_page() {
+	@Given("User is on the Business dashbsoard page")
+	public void user_is_on_the_Business_dashboard_page() {
 		driver = DriverFactory.getDriver();
 
 		getLoginPage().doLogin(ConfigReader.getProperty("validmailid"), ConfigReader.getProperty("validpassword"));
