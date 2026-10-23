@@ -13,7 +13,7 @@ import utils.Element;
 public class LoginPage {
 
 	private WebDriver driver;
-	private Element elementUtil;
+	private Element element;
 	private WebDriverWait wait;
 
 	@FindBy(xpath = "//input[@type='email']")
@@ -33,7 +33,7 @@ public class LoginPage {
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
-		this.elementUtil = new Element(driver);
+		this.element = new Element(driver);
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		PageFactory.initElements(driver, this);
 	}
@@ -71,7 +71,7 @@ public class LoginPage {
 
 	public boolean isDashboardDisplayed() {
 		try {
-			return elementUtil.isDisplayed(dashboardHeader);
+			return element.isDisplayed(dashboardHeader);
 		} catch (Exception e) {
 			return false;
 		}
@@ -79,7 +79,7 @@ public class LoginPage {
 
 	public boolean isErrorMessageDisplayed() {
 		try {
-			return elementUtil.isDisplayed(errorMessage);
+			return element.isDisplayed(errorMessage);
 		} catch (Exception e) {
 			return false;
 		}

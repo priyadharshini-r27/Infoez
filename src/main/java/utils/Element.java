@@ -44,88 +44,99 @@ public class Element {
 		WebElement WebElement = waitForClick(element);
 		WebElement.click();
 	}
+
 	public void sendKeys(WebElement element, String value) {
-		WebElement WebElement =  waitForVisibility(element);
+		WebElement WebElement = waitForVisibility(element);
 		WebElement.click();
 		WebElement.clear();
 		WebElement.sendKeys(value);
 	}
-	public int getSize(List<WebElement>elements) {
-		List<WebElement>webElements=waitForVisibilityOfAllelemens(elements);
-				return webElements.size();
+
+	public int getSize(List<WebElement> elements) {
+		List<WebElement> webElements = waitForVisibilityOfAllelemens(elements);
+		return webElements.size();
 	}
+
 	public String getText(WebElement element) {
-		WebElement webElement=waitForVisibility(element);
+		WebElement webElement = waitForVisibility(element);
 		return webElement.getText();
 	}
-	public String getAttribute(WebElement element,String attributename) {
-		WebElement webElement=waitForVisibility(element);
+
+	public String getAttribute(WebElement element, String attributename) {
+		WebElement webElement = waitForVisibility(element);
 		return webElement.getAttribute(attributename);
 
 	}
-	public void selectByvalue(WebElement element,String value) {
-		WebElement webElement=waitForVisibility(element);
-		Select select=new Select(webElement);
+
+	public void selectByvalue(WebElement element, String value) {
+		WebElement webElement = waitForVisibility(element);
+		Select select = new Select(webElement);
 		select.selectByValue(value);
 	}
-	public void selectByIntex(WebElement element, int  index) {
-		WebElement webElement=waitForVisibility(element);
-		Select select=new Select(webElement);
+
+	public void selectByIntex(WebElement element, int index) {
+		WebElement webElement = waitForVisibility(element);
+		Select select = new Select(webElement);
 		select.selectByIndex(index);
 	}
-	public void selectByText(WebElement element,String value) {
-		WebElement webElement=waitForVisibility(element);
-		Select select=new Select(webElement);
+
+	public void selectByText(WebElement element, String value) {
+		WebElement webElement = waitForVisibility(element);
+		Select select = new Select(webElement);
 		select.selectByVisibleText(value);
 	}
-	
+
 	public String getTittle() {
- 		return driver.getTitle();
+		return driver.getTitle();
 	}
-	
+
 	public String getCurrentUrl() {
-		 return driver.getCurrentUrl();
+		return driver.getCurrentUrl();
 	}
-	
+
 	public boolean isDisplayed(WebElement element) {
-		WebElement webElement=waitForVisibility(element);
+		WebElement webElement = waitForVisibility(element);
 		return element.isDisplayed();
 	}
-	
+
 	public void jsclick(WebElement element) {
-		JavascriptExecutor js=(JavascriptExecutor)driver;
-		js.executeScript("arguments[0].click();",element);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].click();", element);
 	}
-	
-	
-	public void  scrollToElement(WebElement element) {
-		JavascriptExecutor js=(JavascriptExecutor)driver;
-		js.executeScript("arguments[0].scrollIntoView({block:'center'});",element);
+
+	public void scrollToElement(WebElement element) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("arguments[0].scrollIntoView({block:'center'});", element);
 	}
+
 	public void clickVisibleElement(By locator) {
-		List<WebElement>elements=driver.findElements(locator);
-		for(WebElement element: elements) {
-		if(element.isDisplayed()&&element.isEnabled()) {
-			element.click();
-			break;
+		List<WebElement> elements = driver.findElements(locator);
+		for (WebElement element : elements) {
+			if (element.isDisplayed() && element.isEnabled()) {
+				element.click();
+				break;
+			}
 		}
-		}
-		
+
 	}
+
 	public void clickElementByText(List<WebElement> elements, String text) {
 
-	    for (WebElement element : elements) {
+		for (WebElement element : elements) {
 
-	        if (element.isDisplayed() && element.isEnabled()
+			if (element.isDisplayed() && element.isEnabled()
 
-	                && element.getText().trim().equals(text)) {
+					&& element.getText().trim().equals(text)) {
 
-	            element.click();
+				element.click();
 
-	            break;
+				break;
 
-	        }
+			}
 
-	    }
+		}
 
-	}}
+	}
+
+
+}

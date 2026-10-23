@@ -15,7 +15,7 @@ import utils.Element;
 public class MyBusinessesPage {
 
 	private WebDriver driver;
-	private Element elementUtil;
+	private Element element;
 	private WebDriverWait wait;
 
 	@FindBy(xpath = "//a[@data-testid='biz-nav-my-businesses']")
@@ -45,13 +45,12 @@ public class MyBusinessesPage {
 	@FindBy(xpath = "//input[@type='email']")
 	private WebElement emailInput;
 
-	// Submit button inside modal / page
 	@FindBy(xpath = "//button[normalize-space()='Create business']")
 	private WebElement createBusinessBtn;
 
 	public MyBusinessesPage(WebDriver driver) {
 		this.driver = driver;
-		this.elementUtil = new Element(driver);
+		this.element = new Element(driver);
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		PageFactory.initElements(driver, this);
 	}
@@ -78,40 +77,40 @@ public class MyBusinessesPage {
 	public void clickMyBusinessesButton() {
 		By menuLocator = By.xpath("//a[@data-testid='biz-nav-my-businesses']");
 		WebElement menu = wait.until(ExpectedConditions.elementToBeClickable(menuLocator));
-		elementUtil.Click(menu);
+		element.Click(menu);
 	}
 
 	public void clickAddBusinessButton() {
-		elementUtil.Click(addBusinessBtn);
+		element.Click(addBusinessBtn);
 	}
 
 	public void enterBusinessName(String businessName) {
-		elementUtil.sendKeys(businessNameInput, businessName);
+		element.sendKeys(businessNameInput, businessName);
 	}
 
 	public void enterDescription(String description) {
-		elementUtil.sendKeys(descriptionInput, description);
+		element.sendKeys(descriptionInput, description);
 	}
 
 	public void enterCity(String city) {
-		elementUtil.sendKeys(cityInput, city);
+		element.sendKeys(cityInput, city);
 	}
 
 	public void enterAddress(String address) {
-		elementUtil.sendKeys(addressInput, address);
+		element.sendKeys(addressInput, address);
 	}
 
 	public void enterPhone(String phone) {
-		elementUtil.sendKeys(phoneInput, phone);
+		element.sendKeys(phoneInput, phone);
 	}
 
 	public void enterEmail(String email) {
-		elementUtil.sendKeys(emailInput, email);
+		element.sendKeys(emailInput, email);
 	}
 
 	public void clickSubmitBusiness() {
-		elementUtil.scrollToElement(createBusinessBtn);
-		elementUtil.Click(createBusinessBtn);
+		element.scrollToElement(createBusinessBtn);
+		element.Click(createBusinessBtn);
 	}
 
 	public boolean isBusinessPresentInList(String businessName) {
