@@ -52,84 +52,46 @@ public class ProfilePage {
 	public ProfilePage(WebDriver driver) {
 		this.driver = driver;
 		this.element = new Element(driver);
-
 		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		PageFactory.initElements(driver, this);
-	}
+		}
 
-	public void clickUserDropdown() throws InterruptedException {
-		Thread.sleep(6000);
+		public void clickUserDropdown() {
 		wait.until(ExpectedConditions.urlContains("/business/dashboard"));
-
-		try {
-
-			WebElement trigger = wait.until(ExpectedConditions.elementToBeClickable(userDropdownTrigger));
-			try {
-				trigger.click();
-			} catch (Exception e) {
-				((JavascriptExecutor) driver).executeScript("arguments[0].click();", trigger);
-			}
-		} catch (Exception ignored) {
-			WebElement fallback = wait
-					.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid='user-menu-btn']")));
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", fallback);
+		element.Click(userDropdownTrigger);
 		}
-	}
 
-	public void clickProfileMenuItem() {
+		public void clickProfileMenuItem() {
+		element.Click(profileMenuItem);
+		}
 
-		WebElement profileOption = driver.findElement(By.xpath("//div[@data-testid='menu-profile']"));
-		((JavascriptExecutor) driver).executeScript("arguments[0].click();", profileOption);
-	}
+		public boolean isProfilePageDisplayed() {
+			return element.isDisplayed(yourProfileHeading);
+		}
 
-	public boolean isProfilePageDisplayed(String headingText) {
+		public void enterName(String name) {
+		element.sendKeys(nameField, name);
+		}
+
+		public void enterPhone(String phone) {
+		element.sendKeys(phoneField, phone);
+		}
+
+		public void clickSaveChanges() {
+		element.scrollToElement(saveChangesButton);
+		element.Click(saveChangesButton);
+		}
+
+		public boolean isSuccessToastDisplayed() {
 		try {
-			wait.until(d -> d.getCurrentUrl().contains("/profile"));
-			return wait.until(ExpectedConditions.visibilityOf(yourProfileHeading)).getText().contains(headingText);
+		return wait.until(ExpectedConditions.visibilityOf(successToast)).isDisplayed();
 		} catch (Exception e) {
-			return driver.getCurrentUrl().contains("/profile");
+		return true; 
 		}
-	}
-
-	public void enterName(String name) {
-		WebElement el = wait.until(ExpectedConditions.visibilityOf(nameField));
-		clearAndType(el, name);
-	}
-
-	public void enterPhone(String phone) {
-		WebElement el = wait.until(ExpectedConditions.visibilityOf(phoneField));
-		clearAndType(el, phone);
-	}
-
-	private void clearAndType(WebElement element, String text) {
-		element.click();
-
-		element.sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.BACK_SPACE);
-		element.clear();
-		element.sendKeys(text);
-	}
-
-	public void clickSaveChanges() {
-		WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(saveChangesButton));
-		element.scrollToElement(btn);
-		try {
-			btn.click();
-		} catch (Exception e) {
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
 		}
-	}
 
-	public boolean isSuccessToastDisplayed() {
-		try {
-			return wait.until(ExpectedConditions.visibilityOf(successToast)).isDisplayed();
-		} catch (Exception e) {
-
-			return true;
-		}
-	}
-
-	public String getEnteredName() {
+		public String getEnteredName() {
 		wait.until(ExpectedConditions.visibilityOf(nameField));
 		return nameField.getAttribute("value");
-	}
-}
+		}
+		}

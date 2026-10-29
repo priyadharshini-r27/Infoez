@@ -51,6 +51,11 @@ public class Element {
 		WebElement.clear();
 		WebElement.sendKeys(value);
 	}
+	
+	public void clear(WebElement element) {
+		WebElement webElement = waitForVisibility(element);
+		webElement.clear();
+	}
 
 	public int getSize(List<WebElement> elements) {
 		List<WebElement> webElements = waitForVisibilityOfAllelemens(elements);
@@ -98,6 +103,14 @@ public class Element {
 		WebElement webElement = waitForVisibility(element);
 		return element.isDisplayed();
 	}
+	
+	public boolean waitForUrlContains(String urlFraction) {
+		try {
+			return wait.until(ExpectedConditions.urlContains(urlFraction));
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 	public void jsclick(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -137,6 +150,8 @@ public class Element {
 		}
 
 	}
+
+	
 
 
 }

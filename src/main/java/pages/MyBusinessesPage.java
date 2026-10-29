@@ -1,7 +1,6 @@
 package pages;
 
 import java.time.Duration;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,111 +13,133 @@ import utils.Element;
 
 public class MyBusinessesPage {
 
-	private WebDriver driver;
-	private Element element;
-	private WebDriverWait wait;
+ private WebDriver driver;
+ private Element element;
+ private WebDriverWait wait;
 
-	@FindBy(xpath = "//a[@data-testid='biz-nav-my-businesses']")
-	private WebElement myBusinessesMenu;
+ @FindBy(xpath = "//a[@data-testid='biz-nav-my-businesses']")
+ private WebElement myBusinessesMenu;
 
-	@FindBy(xpath = "//h1[text()='My businesses']")
-	private WebElement myBusinessesHeading;
+ @FindBy(xpath = "//h1[text()='Business dashboard']")
+ private WebElement dashboardHeading;
 
-	@FindBy(xpath = "//a[@data-testid='biz-nav-add-business']")
-	private WebElement addBusinessBtn;
+ @FindBy(xpath = "//a[@data-testid='biz-nav-add-business']")
+ private WebElement addBusinessBtn;
 
-	@FindBy(xpath = "//input[@data-testid='biz-name']")
-	private WebElement businessNameInput;
+ @FindBy(xpath = "//input[@data-testid='biz-name']")
+ private WebElement businessNameInput;
 
-	@FindBy(xpath = "//textarea[@data-testid='biz-desc']")
-	private WebElement descriptionInput;
+ @FindBy(xpath = "//textarea[@data-testid='biz-desc']")
+ private WebElement descriptionInput;
 
-	@FindBy(xpath = "//input[@data-testid='biz-city']")
-	private WebElement cityInput;
+ @FindBy(xpath = "//input[@data-testid='biz-city']")
+ private WebElement cityInput;
 
-	@FindBy(xpath = "//input[@data-testid='biz-address']")
-	private WebElement addressInput;
+ @FindBy(xpath = "//input[@data-testid='biz-address']")
+ private WebElement addressInput;
 
-	@FindBy(xpath = "//input[@data-testid='biz-phone']")
-	private WebElement phoneInput;
+ @FindBy(xpath = "//input[@data-testid='biz-phone']")
+ private WebElement phoneInput;
 
-	@FindBy(xpath = "//input[@type='email']")
-	private WebElement emailInput;
+ @FindBy(xpath = "//input[@type='email']")
+ private WebElement emailInput;
 
-	@FindBy(xpath = "//button[normalize-space()='Create business']")
-	private WebElement createBusinessBtn;
+ @FindBy(xpath = "//button[normalize-space()='Create business']")
+ private WebElement createBusinessBtn;
 
-	public MyBusinessesPage(WebDriver driver) {
-		this.driver = driver;
-		this.element = new Element(driver);
-		this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-		PageFactory.initElements(driver, this);
-	}
+ @FindBy(xpath = "//button[contains(text(),'Edit')]")
+ private WebElement editButton;
 
-	public void navigateToDashboard() {
-		String currentUrl = driver.getCurrentUrl();
-		if (!currentUrl.contains("/business/dashboard")) {
-			driver.get("https://d2mojgetgp5xie.cloudfront.net/business/dashboard");
-		}
-	}
+ @FindBy(xpath = "//input[@data-testid='biz-name']")
+ private WebElement BusinessNameField;
 
-	public boolean isDashboardPageLoaded() {
-		try {
+ @FindBy(xpath = "//button[contains(text(),'Save')]")
+ private WebElement saveButton;
 
-			WebElement dashboardHeader = wait.until(
-					ExpectedConditions.visibilityOfElementLocated(By.xpath("//h1[text()='Business dashboard']")));
-			return dashboardHeader.isDisplayed();
-		} catch (Exception e) {
+ @FindBy(xpath = "//a[@data-testid='biz-nav-leads']")
+ private WebElement leadsMenu;
 
-			return driver.getCurrentUrl().contains("dashboard");
-		}
-	}
+ @FindBy(xpath = "//h1[text()='Leads']")
+ private WebElement leadsHeading;
 
-	public void clickMyBusinessesButton() {
-		By menuLocator = By.xpath("//a[@data-testid='biz-nav-my-businesses']");
-		WebElement menu = wait.until(ExpectedConditions.elementToBeClickable(menuLocator));
-		element.Click(menu);
-	}
+ public MyBusinessesPage(WebDriver driver) {
+ this.driver = driver;
+ this.element = new Element(driver);
+ this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+ PageFactory.initElements(driver, this);
+ }
 
-	public void clickAddBusinessButton() {
-		element.Click(addBusinessBtn);
-	}
+ public String getPageTitle() {
+ return element.getText(dashboardHeading);
+ }
 
-	public void enterBusinessName(String businessName) {
-		element.sendKeys(businessNameInput, businessName);
-	}
+ public boolean isDashboardDisplayed() {
+ return wait.until(ExpectedConditions.visibilityOf(dashboardHeading)).isDisplayed();
+ }
 
-	public void enterDescription(String description) {
-		element.sendKeys(descriptionInput, description);
-	}
+ public void clickMyBusinessesButton() {
+ element.Click(myBusinessesMenu);
+ }
 
-	public void enterCity(String city) {
-		element.sendKeys(cityInput, city);
-	}
+ public void clickAddBusinessButton() {
+ element.Click(addBusinessBtn);
+ }
 
-	public void enterAddress(String address) {
-		element.sendKeys(addressInput, address);
-	}
+ public void enterBusinessName(String businessName) {
+ element.sendKeys(businessNameInput, businessName);
+ }
 
-	public void enterPhone(String phone) {
-		element.sendKeys(phoneInput, phone);
-	}
+ public void enterDescription(String description) {
+ element.sendKeys(descriptionInput, description);
+ }
 
-	public void enterEmail(String email) {
-		element.sendKeys(emailInput, email);
-	}
+ public void enterCity(String city) {
+ element.sendKeys(cityInput, city);
+ }
 
-	public void clickSubmitBusiness() {
-		element.scrollToElement(createBusinessBtn);
-		element.Click(createBusinessBtn);
-	}
+ public void enterAddress(String address) {
+ element.sendKeys(addressInput, address);
+ }
 
-	public boolean isBusinessPresentInList(String businessName) {
-		By businessNameLocator = By.xpath("//input[@data-testid='biz-name']");
-		try {
-			return driver.findElements(businessNameLocator).size() > 0;
-		} catch (Exception e) {
-			return false;
-		}
-	}
+ public void enterPhone(String phone) {
+ element.sendKeys(phoneInput, phone);
+ }
+
+ public void enterEmail(String email) {
+ element.sendKeys(emailInput, email);
+ }
+
+ public void clickSubmitBusiness() {
+ element.scrollToElement(createBusinessBtn);
+ element.Click(createBusinessBtn);
+ }
+
+ public void clickEditButton() {
+ element.Click(editButton);
+ }
+
+ public void enterEditBusinessName(String businessName) {
+ wait.until(ExpectedConditions.visibilityOf(BusinessNameField));
+ BusinessNameField.clear();
+ BusinessNameField.sendKeys(businessName);
+ }
+
+ public void clickSaveChanges() {
+ element.Click(saveButton);
+ }
+
+ public void clickLeadsButton() {
+ element.Click(leadsMenu);
+ }
+
+ public boolean isLeadsModuleDisplayed() {
+ return wait.until(ExpectedConditions.visibilityOf(leadsHeading)).isDisplayed();
+ }
+
+ public boolean isBusinessPresentInList(String businessName) {
+ WebElement businessElement = wait.until(
+ ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[text()='" + businessName + "']"))
+ );
+ return businessElement.isDisplayed();
+ }
 }

@@ -1,3 +1,5 @@
+
+@Login
 Feature: Sign in Functionality
 
 
@@ -6,10 +8,11 @@ Feature: Sign in Functionality
  When user enters Business Owner email "<email>" 
  And User enter password "<password>"
  And clicks on the Sign in button
- Then user should navigate to home page "<result>"
+ Then user should navigate to home page "<result>" and "<Message>"
 
  Examples:
- | email            | password  | result |
- | owner@infoez.com | Owner@123 | valid  |
- | owne@infoez.com  | Owner@123 | invalid|
- | owner@infoez.com | Owner@124 | invalid|
+ | email            | password  | result | Message           |
+ |                  |           | Email  |      Email        |
+ | owne@infoez.com  | Owner@123 | invalid|invalid credentials|
+ | owner@infoez.com | Owner@124 | invalid|invalid credentials|  
+ | owner@infoez.com | Owner@123 | valid  |       valid       |

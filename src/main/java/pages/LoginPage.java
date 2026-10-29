@@ -8,6 +8,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import io.opentelemetry.exporter.logging.SystemOutLogRecordExporter;
 import utils.Element;
 
 public class LoginPage {
@@ -28,8 +30,8 @@ public class LoginPage {
 	@FindBy(xpath = "//h1[text()='Business dashboard']")
 	private WebElement dashboardHeader;
 
-	@FindBy(xpath = "//div[contains(@class,'alert')]")
-	private WebElement errorMessage;
+	@FindBy(xpath = "//div[@data-title and text()='Invalid credentials']")
+	WebElement errorMessage;
 
 	public LoginPage(WebDriver driver) {
 		this.driver = driver;
@@ -43,24 +45,16 @@ public class LoginPage {
 	}
 
 	public void enterEmail(String email) {
-		WebElement el = wait.until(ExpectedConditions.visibilityOf(emailInput));
-		el.clear();
-		el.sendKeys(email);
+	    element.sendKeys(emailInput, email);;
+		
 	}
 
 	public void enterPassword(String password) {
-		WebElement el = wait.until(ExpectedConditions.visibilityOf(passwordInput));
-		el.clear();
-		el.sendKeys(password);
+		element.sendKeys(passwordInput, password);
 	}
 
 	public void clickSignIn() {
-		WebElement btn = wait.until(ExpectedConditions.elementToBeClickable(signInButton));
-		try {
-			btn.click();
-		} catch (Exception e) {
-			((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
-		}
+		element.Click(signInButton);
 	}
 
 	public void doLogin(String email, String password) {
@@ -70,18 +64,37 @@ public class LoginPage {
 	}
 
 	public boolean isDashboardDisplayed() {
-		try {
-			return element.isDisplayed(dashboardHeader);
-		} catch (Exception e) {
-			return false;
-		}
+		return element.isDisplayed(dashboardHeader);
 	}
 
 	public boolean isErrorMessageDisplayed() {
-		try {
-			return element.isDisplayed(errorMessage);
-		} catch (Exception e) {
-			return false;
-		}
+		return wait.until(
+		ExpectedConditions.visibilityOf(errorMessage)
+		).isDisplayed();
+		
 	}
+	public String getinvalidMessage() {
+		return element.getText(errorMessage);
+		
+	}
+	public String getEmailValidationMessage() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		return (String) js.executeScript("return arguments[0].validationMessage;", emailInput);
+	}
+	public String getpasswordValidationMessage() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		return (String) js.executeScript("return arguments[0].validationMessage;", passwordInput);
+	}
+	
+	public void clickWithEmptyEmail() {
+		element.clear(emailInput);
+		element.Click(signInButton);
+		
+	}
+	public void clickWithEmptypassword() {
+		element.clear(passwordInput);
+		element.Click(signInButton);
+	}
+	
+	
 }
