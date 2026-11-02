@@ -79,6 +79,32 @@ public class MyBusinessesStep {
  public void user_enters_new_business_email(String email) {
  getMyBusinessesPage().enterEmail(email);
  }
+ 
+ @Then("User verify the input fields")
+ public void Userverifytheinputfields() {
+	 Assert.assertEquals(myBusinessesPage.getbusinessNameValue(), "Aroma Cafe");
+	 
+	 Assert.assertEquals(myBusinessesPage.getdescriptionValue(), "Fresh coffee and tasty snacks");
+	 
+	 Assert.assertEquals(myBusinessesPage.getcityValue(), "Bengaluru");
+	 
+	 Assert.assertEquals(myBusinessesPage.getaddressValue(), "45 Indiranagar Rd");
+	 
+	 Assert.assertEquals(myBusinessesPage.getemailValue(), "contact@urbancafe.com");
+	 
+	 Assert.assertEquals(myBusinessesPage.getphoneValue(), "9876543210");
+	 
+	 System.out.println("businessName:" + myBusinessesPage.getbusinessNameValue());
+	 System.out.println("description:" + myBusinessesPage.getdescriptionValue());
+	 System.out.println("city:" + myBusinessesPage.getcityValue());
+	 System.out.println("address:" + myBusinessesPage.getaddressValue());
+	 System.out.println("email:" + myBusinessesPage.getemailValue());
+	 System.out.println("phone:" + myBusinessesPage.getphoneValue());
+	 
+	 System.out.println("All input fields verify successfully");
+	 
+ }
+
 
  @And("User clicks on submit new business button")
  public void user_clicks_on_submit_new_business_button() {
@@ -91,6 +117,7 @@ public class MyBusinessesStep {
  Assert.assertTrue(getMyBusinessesPage().isBusinessPresentInList(businessName),
  "Created business '" + businessName + "' was not found in the businesses list.");
  }
+ 
 
 
  @When("User clicks on the edit button")
@@ -107,12 +134,23 @@ public class MyBusinessesStep {
  public void user_enters_business_description(String description) {
  getMyBusinessesPage().enterDescription(description);
  }
+ @Then("User verify the input field")
+ public void Userverifytheinputfield() {
+	 Assert.assertEquals(myBusinessesPage.getbusinessNameValue(), "Sivam cafe");
+	 
+	 Assert.assertEquals(myBusinessesPage.getdescriptionValue(), "Authentic South Indian cuisine");
+	 
+	 System.out.println("businessName:" + myBusinessesPage.getbusinessNameValue());
+	 System.out.println("description:" + myBusinessesPage.getdescriptionValue());
+	 System.out.println("All input fields verify successfully");
+ }
 
  @Then("User click on Save changes button")
  public void user_click_on_save_changes_button() {
  getMyBusinessesPage().clickSaveChanges();
  }
-
+ 
+ 
 
  @When("User clicks on the Leads button")
  public void user_clicks_on_the_leads_button() {

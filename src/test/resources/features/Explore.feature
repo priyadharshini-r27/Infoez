@@ -37,7 +37,7 @@ Then filtered business listings should be displayed successfully
 Examples:
 | Category         | SortBy         | MinRating |
 | Restaurants      | Top rated      | 4.0+      |
-| Cafes & Bakeries | Most popular   | 4.5+      |
+|Home Services     | Most popular   | 4.5+      |
 | Beauty & Spa     | Recently added | Any       |
 
 

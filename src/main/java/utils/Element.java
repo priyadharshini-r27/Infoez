@@ -44,6 +44,11 @@ public class Element {
 		WebElement WebElement = waitForClick(element);
 		WebElement.click();
 	}
+	
+	public void clickOnElement(WebElement element) {
+		WebElement webElement = wait.until(ExpectedConditions.elementToBeClickable(element));
+		webElement.click();
+		}
 
 	public void sendKeys(WebElement element, String value) {
 		WebElement WebElement = waitForVisibility(element);
@@ -103,6 +108,11 @@ public class Element {
 		WebElement webElement = waitForVisibility(element);
 		return element.isDisplayed();
 	}
+	public boolean isElementDisplayed(WebElement element) {
+		WebElement webElement = wait.until(ExpectedConditions.visibilityOf(element));
+		return webElement.isDisplayed();
+		}
+		
 	
 	public boolean waitForUrlContains(String urlFraction) {
 		try {
@@ -132,6 +142,14 @@ public class Element {
 		}
 
 	}
+	
+	public void typeTextIntoElement(WebElement element, String textToBeTyped) {
+		WebElement webElement = wait.until(ExpectedConditions.visibilityOf(element));
+		webElement.clear();
+		if (textToBeTyped != null && !textToBeTyped.isEmpty()) {
+		webElement.sendKeys(textToBeTyped);
+		}
+		}
 
 	public void clickElementByText(List<WebElement> elements, String text) {
 

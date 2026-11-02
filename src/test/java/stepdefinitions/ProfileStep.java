@@ -76,6 +76,13 @@ getProfilePage().enterName(name);
 public void user_updates_the_profile_phone_to(String phone) {
 getProfilePage().enterPhone(phone);
 }
+	@Then("user validate  input fields")
+	public void uservalidateinputfields() {
+		Assert.assertEquals(profilePage.getNameValue(), "Ravi");
+		Assert.assertEquals(profilePage.getphoneValue(), "9876543210");
+		System.out.println("Name:" + profilePage.getNameValue());
+		System.out.println("phone:" + profilePage.getphoneValue());
+	}
 
 	@And("User clicks on Save changes button")
 public void user_clicks_on_save_changes_button() {

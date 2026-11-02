@@ -94,4 +94,11 @@ public class ProfilePage {
 		wait.until(ExpectedConditions.visibilityOf(nameField));
 		return nameField.getAttribute("value");
 		}
+		public String getNameValue() {
+			return nameField.getAttribute("value");
+		}
+		public String getphoneValue() {
+			return phoneField.getAttribute("value");
+			
+		}
 		}
